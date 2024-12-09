@@ -1,53 +1,88 @@
-document.getElementById('calculateButton').addEventListener('click', () => {
-  const input = document.getElementById('dataInput').value;
-  const numbers = input.split(',').map(Number).filter(num => !isNaN(num));
+// Adiciona um ouvinte de evento para o botão de cálculo
+document.getElementById('botaoCalcular').addEventListener('click', () => {
+  
+  // Obtém o valor inserido pelo usuário (uma lista de números separados por vírgulas)
+  const entrada = document.getElementById('entradaDados').value;
+  
+  // Converte o valor inserido em um array de números, removendo qualquer valor que não seja numérico
+  const numeros = entrada.split(',').map(Number).filter(num => !isNaN(num));
 
-  if (numbers.length !== 10) {
+  // Verifica se o usuário inseriu exatamente 10 números
+  if (numeros.length !== 10) {
     alert('Por favor, insira exatamente 10 números.');
-    return;
+    return; // Caso não tenha inserido 10 números, não continua com o cálculo
   }
 
-  const mean = calculateMean(numbers);
-  const median = calculateMedian(numbers);
-  const mode = calculateMode(numbers);
-  const variance = calculateVariance(numbers, mean);
-  const stdDev = Math.sqrt(variance);
-  const cv = (stdDev / mean) * 100;
-  const stdError = stdDev / Math.sqrt(numbers.length);
+  // Calcula a média dos números
+  const media = calcularMedia(numeros);
+  
+  // Calcula a mediana dos números
+  const mediana = calcularMediana(numeros);
+  
+  // Calcula a moda dos números
+  const moda = calcularModa(numeros);
+  
+  // Calcula a variância, passando também a média dos números como parâmetro
+  const variancia = calcularVariancia(numeros, media);
+  
+  // Calcula o desvio padrão, que é a raiz quadrada da variância
+  const desvioPadrao = Math.sqrt(variancia);
+  
+  // Calcula o coeficiente de variação (CV), que é o desvio padrão dividido pela média, multiplicado por 100 para ser apresentado em percentual
+  const cv = (desvioPadrao / media) * 100;
+  
+  // Calcula o erro padrão, que é o desvio padrão dividido pela raiz quadrada do número de elementos
+  const erroPadrao = desvioPadrao / Math.sqrt(numeros.length);
 
-  displayResults({ mean, median, mode, variance, stdDev, cv, stdError });
+  // Exibe os resultados na página, chamando a função exibirResultados
+  exibirResultados({ media, mediana, moda, variancia, desvioPadrao, cv, erroPadrao });
 });
 
-function calculateMean(numbers) {
-  return numbers.reduce((a, b) => a + b, 0) / numbers.length;
+// Função para calcular a média
+function calcularMedia(numeros) {
+  return numeros.reduce((a, b) => a + b, 0) / numeros.length;
 }
 
-function calculateMedian(numbers) {
-  const sorted = [...numbers].sort((a, b) => a - b);
-  const mid = Math.floor(sorted.length / 2);
-  return sorted.length % 2 === 0
-    ? (sorted[mid - 1] + sorted[mid]) / 2
-    : sorted[mid];
+// Função para calcular a mediana
+function calcularMediana(numeros) {
+  const ordenados = [...numeros].sort((a, b) => a - b); // Ordena os números em ordem crescente
+  const meio = Math.floor(ordenados.length / 2); // Encontra o índice do meio
+  // Se a quantidade de números for ímpar, a mediana é o número do meio
+  // Se for par, a mediana é a média dos dois números do meio
+  return ordenados.length % 2 === 0
+    ? (ordenados[meio - 1] + ordenados[meio]) / 2
+    : ordenados[meio];
 }
 
-function calculateMode(numbers) {
-  const frequency = {};
-  numbers.forEach(num => frequency[num] = (frequency[num] || 0) + 1);
-  const maxFrequency = Math.max(...Object.values(frequency));
-  const modes = Object.keys(frequency).filter(num => frequency[num] === maxFrequency);
-  return modes.length === numbers.length ? '-' : modes.join(', ');
+// Função para calcular a moda (valor que mais se repete)
+function calcularModa(numeros) {
+  const frequencia = {}; // Objeto para contar a frequência de cada número
+  numeros.forEach(num => frequencia[num] = (frequencia[num] || 0) + 1); // Conta as ocorrências dos números
+  
+  // Encontra a maior frequência
+  const frequenciaMaxima = Math.max(...Object.values(frequencia));
+  
+  // Filtra os números que possuem a maior frequência
+  const modas = Object.keys(frequencia).filter(num => frequencia[num] === frequenciaMaxima);
+  
+  // Se todos os números são únicos (não há repetição), retorna um "-"
+  // Caso contrário, retorna os números mais frequentes
+  return modas.length === numeros.length ? '-' : modas.join(', ');
 }
 
-function calculateVariance(numbers, mean) {
-  return numbers.reduce((sum, num) => sum + Math.pow(num - mean, 2), 0) / numbers.length;
+// Função para calcular a variância (média dos quadrados das diferenças entre cada número e a média)
+function calcularVariancia(numeros, media) {
+  return numeros.reduce((soma, num) => soma + Math.pow(num - media, 2), 0) / numeros.length;
 }
 
-function displayResults(results) {
-  document.getElementById('mean').textContent = results.mean.toFixed(4);
-  document.getElementById('median').textContent = results.median.toFixed(4);
-  document.getElementById('mode').textContent = results.mode;
-  document.getElementById('variance').textContent = results.variance.toFixed(4);
-  document.getElementById('stdDev').textContent = results.stdDev.toFixed(4);
-  document.getElementById('cv').textContent = results.cv.toFixed(4) + '%';
-  document.getElementById('stdError').textContent = results.stdError.toFixed(4);
+// Função para exibir os resultados no HTML
+function exibirResultados(resultados) {
+  // Atualiza o conteúdo de vários elementos HTML com os resultados calculados
+  document.getElementById('media').textContent = resultados.media.toFixed(4); // Exibe a média com 4 casas decimais
+  document.getElementById('mediana').textContent = resultados.mediana.toFixed(4); // Exibe a mediana com 4 casas decimais
+  document.getElementById('moda').textContent = resultados.moda; // Exibe a moda
+  document.getElementById('variancia').textContent = resultados.variancia.toFixed(4); // Exibe a variância com 4 casas decimais
+  document.getElementById('desvioPadrao').textContent = resultados.desvioPadrao.toFixed(4); // Exibe o desvio padrão com 4 casas decimais
+  document.getElementById('cv').textContent = resultados.cv.toFixed(4) + '%'; // Exibe o coeficiente de variação com 4 casas decimais e o símbolo de porcentagem
+  document.getElementById('erroPadrao').textContent = resultados.erroPadrao.toFixed(4); // Exibe o erro padrão com 4 casas decimais
 }
