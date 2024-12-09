@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Análise de Dados</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1 id="pp">Pedro Paulo Salviano Fonseca</h1>
+    <h1>Análise de Dados Estatísticos</h1>
+    <form id="dataForm">
+      <label for="dataInput">Insira 10 números separados por vírgula:</label>
+      <input type="text" id="dataInput" placeholder="Ex.: 12, 45, 67, ...">
+      <button type="button" id="calculateButton">Calcular</button>
+    </form>
+    <div id="results" class="results-container">
+      <h2>Resultados</h2>
+      <p><strong>Média:</strong> <span id="mean">-</span></p>
+      <p><strong>Mediana:</strong> <span id="median">-</span></p>
+      <p><strong>Moda:</strong> <span id="mode">-</span></p>
+      <p><strong>Variância:</strong> <span id="variance">-</span></p>
+      <p><strong>Desvio Padrão:</strong> <span id="stdDev">-</span></p>
+      <p><strong>Coeficiente de Variação (CV):</strong> <span id="cv">-</span></p>
+      <p><strong>Erro Padrão:</strong> <span id="stdError">-</span></p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
