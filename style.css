@@ -26,6 +26,10 @@ h1 {
   text-align: center;
 }
 
+#pp {
+  color: white;
+}
+
 form {
   margin-bottom: 20px;
 }
@@ -113,6 +117,10 @@ button:hover {
   h1 {
     font-size: 1.3em;
   }
+
+#pp {
+  color: white;
+}
 
   label {
     font-size: 1em;
