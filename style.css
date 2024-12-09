@@ -1,4 +1,4 @@
-/* Define o estilo geral da página */
+/* Estilo geral */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -8,10 +8,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
-/* Estilização do contêiner principal */
 .container {
   background: #1e1e4a;
   padding: 20px;
@@ -19,20 +18,14 @@ body {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   width: 90%;
   max-width: 600px;
+  margin: 20px;
 }
 
-/* Estilo do título principal */
 h1 {
   color: #a29bfe;
   text-align: center;
 }
 
-#pp {
-  color: white;
-}
-
-
-/* Formulário de entrada */
 form {
   margin-bottom: 20px;
 }
@@ -61,14 +54,13 @@ button {
   cursor: pointer;
   width: 100%;
   font-size: 1em;
-  font-weight: bold; 
+  font-weight: bold;
 }
 
 button:hover {
   background: linear-gradient(135deg, #512da8, #6a1b9a);
 }
 
-/* Resultados */
 .results-container {
   background: #252552;
   padding: 15px;
@@ -85,4 +77,58 @@ button:hover {
   font-size: 1.1em;
   margin: 8px 0;
   color: #dcdde1;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  input {
+    padding: 8px;
+    font-size: 1em;
+  }
+
+  button {
+    padding: 8px 10px;
+    font-size: 0.9em;
+  }
+
+  .results-container p {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 95%;
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.3em;
+  }
+
+  label {
+    font-size: 1em;
+  }
+
+  input {
+    padding: 6px;
+    font-size: 0.9em;
+  }
+
+  button {
+    padding: 6px 8px;
+    font-size: 0.8em;
+  }
+
+  .results-container p {
+    font-size: 0.9em;
+  }
 }
