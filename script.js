@@ -86,3 +86,14 @@ function exibirResultados(resultados) {
   document.getElementById('cv').textContent = resultados.cv.toFixed(4) + '%'; // Exibe o coeficiente de variação com 4 casas decimais e o símbolo de porcentagem
   document.getElementById('erroPadrao').textContent = resultados.erroPadrao.toFixed(4); // Exibe o erro padrão com 4 casas decimais
 }
+
+// Adiciona o ouvinte de evento para a tecla Enter no campo de entrada de dados
+document.getElementById('entradaDados').addEventListener('keydown', (event) => {
+  // Verifica se a tecla pressionada foi o Enter (código de tecla 13)
+  if (event.key === 'Enter') {
+    // Impede que a página seja recarregada (comportamento padrão ao pressionar Enter)
+    event.preventDefault();
+    // Simula o clique no botão de cálculo
+    document.getElementById('botaoCalcular').click();
+  }
+});
